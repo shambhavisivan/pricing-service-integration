@@ -15,15 +15,6 @@ global virtual with sharing class AJsonConfiguration implements csutil.JsonSetti
 	}
 
 	public void validateVersion() {
-		if (String.isBlank(version)) {
-			throw new PsiException.InvalidVersionException('Missing "version" value');
-		}
-
-		Pattern versionPattern = Pattern.compile('[0-9]{1,2}-[0-9]{1,2}-[0-9]{1,2}');
-		Matcher versionMatcher = versionPattern.matcher(this.version);
-
-		if (!versionMatcher.matches()) {
-			throw new PsiException.InvalidVersionException('Invalid "version" value: ' + this.version);
-		}
+		Utils.validateVersion(version);
 	}
 }

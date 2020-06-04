@@ -36,13 +36,14 @@ global with sharing class PrgSelector {
 		return (List<PrgSelectorRegistration>) pluginConfigurations;
 	}
 
-	private static List<Tuple> instantiatePlugins(List<PrgSelectorRegistration> pluginConfigurations) {
+	private static List<Tuple> instantiatePlugins(List<PrgSelectorRegistration> prgSelectorRegistrations) {
 		List<Tuple> plugins = new List<Tuple>();
 
-		for (PrgSelectorRegistration configuration : pluginConfigurations) {
-			APrgSelector plugin = instantiatePlugin(configuration.className);
+		for (PrgSelectorRegistration selectorRegistration : prgSelectorRegistrations) {
+			APrgSelector plugin = instantiatePlugin(selectorRegistration.className);
 			if (plugin != null) {
-				plugins.add(new Tuple(configuration.className, plugin));
+				plugin.configuration = selectorRegistration.configuration;
+				plugins.add(new Tuple(selectorRegistration.className, plugin));
 			}
 		}
 

@@ -46,6 +46,24 @@ global with sharing class PrgSelectorTest {
 		System.assertEquals('test-prg', prgs.iterator().next());
 	}
 
+	@IsTest
+	private static void testSelectPrgsUseDefaultPrgSelector() {
+		// register a plugin
+		PrgSelectorRegistration selector = new PrgSelectorRegistration();
+		selector.className = DefaultPrgSelector.class.getName();
+		selector.version = '1-0-0';
+		selector.configuration = '{ "prgCodes": ["test-prg-2"], "version": "1-0-0" }';
+
+		JsonConfigurationService.setPluginConfiguration(PrgSelector.PRG_SELECTORS + '/1', selector);
+
+		Test.startTest();
+		Set<String> prgs = PrgSelector.selectPrgs(null, null, null, null);
+		Test.stopTest();
+
+		System.assertEquals(1, prgs.size());
+		System.assertEquals('test-prg-2', prgs.iterator().next());
+	}
+
 	global class TestPrgSelector extends APrgSelector {
 		global override void selectPrgs(String salesAppId, User user, String basketId, Map<String, String> salesContext, Set<String> prgs) {
 			prgs.add('test-prg');

@@ -1,6 +1,7 @@
 global with sharing class PrgSelectorRegistration extends AJsonConfiguration {
 
 	global String className { get; set; }
+	global String configuration { get; set; }
 
 	public PrgSelectorRegistration() {
 	}

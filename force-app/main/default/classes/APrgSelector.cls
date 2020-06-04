@@ -1,5 +1,7 @@
 global virtual with sharing class APrgSelector {
 
+	global String configuration { get; set; }
+
 	global APrgSelector() {
 	}
 
