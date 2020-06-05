@@ -15,6 +15,9 @@ trap finish EXIT
 echo "Creating scratch org..."
 sfdx force:org:create --setdefaultusername -f config/project-scratch-def.json --setalias $orgAlias
 
+echo "Installing CS Utilities package"
+sfdx force:package:install --package cs-util@1.60 --wait 15 --targetusername $orgAlias
+
 echo "Deploying source code"
 sfdx force:source:push --targetusername $orgAlias --wait 10
 
