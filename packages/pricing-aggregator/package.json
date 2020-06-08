@@ -1,0 +1,39 @@
+{
+  "name": "pricing-aggregator",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "pretest": "npm run build",
+    "build": "tsc",
+    "test-ci": "npm run test",
+    "test": "npx mocha test/**"
+  },
+  "author": "Marko Cekol",
+  "license": "See LICENSE.MD",
+  "dependencies": {
+    "@cloudsense/common-cart": "^3.0.5",
+    "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.12",
+    "@types/mocha": "^8.0.3",
+    "chai": "^4.2.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.9",
+    "mocha": "^8.1.1",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,json,md}": [
+      "prettier --write --config .prettierrc",
+      "git add"
+    ]
+  }
+}

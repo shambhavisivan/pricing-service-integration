@@ -2,15 +2,40 @@
   // Use IntelliSense to learn about possible attributes.
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Apex Replay Debugger",
-      "type": "apex-replay",
+      "type": "node",
       "request": "launch",
-      "logFile": "${command:AskForLogFileName}",
-      "stopOnEntry": true,
-      "trace": true
+      "name": "Mocha All",
+      "program": "${workspaceFolder}/packages/pricing-coordinator/node_modules/mocha/bin/_mocha",
+      "args": [
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/packages/pricing-coordinator/test/**/*-test.js",
+        "--require",
+        "ts-node"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Mocha Current File",
+      "program": "${workspaceFolder}/packages/pricing-coordinator/node_modules/mocha/bin/_mocha",
+      "args": [
+        "--timeout",
+        "999999",
+        "--colors",
+        "${file}",
+        "--require",
+        "ts-node"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
