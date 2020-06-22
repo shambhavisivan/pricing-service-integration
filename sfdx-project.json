@@ -7,7 +7,7 @@
       "versionNumber": "1.0.0",
       "dependencies": [
         {
-          "package": "cs-util@1.60"
+          "package": "cs-util@1.63"
         }
       ]
     }
@@ -16,6 +16,6 @@
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "48.0",
   "packageAliases": {
-    "cs-util@1.60": "04t1n000002NYoRAAW"
+    "cs-util@1.63": "04t1n000001YVWx"
   }
 }
