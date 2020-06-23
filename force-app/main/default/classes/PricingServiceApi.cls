@@ -47,6 +47,26 @@ global with sharing class PricingServiceApi {
 		}
 	}
 
+	/**
+	 * Sends the common cart to PRE to get pricing information.
+	 */
+	global static CommonCartWrapper.CommonCart getPricings(CommonCartWrapper.CommonCart cart) {
+		HttpResponse response = dispatcherRequestUtil.sendRequest(
+			'POST',
+			'/pre/v5/pricings',
+			Json.serialize(cart)
+		);
+
+		checkResponseStatusCode(response);
+
+		try {
+			String responseBody = response.getBody();
+			return (CommonCartWrapper.CommonCart) Json.deserialize(responseBody, CommonCartWrapper.CommonCart.class);
+		} catch (Exception e) {
+			throw new PsiException.DeserializationException('Could not parse response: ' + e.getMessage());
+		}
+	}
+
 	private static csutil.DispatcherRequestUtil getDispatcherRequestUtilInstance() {
 		if (dispatcherRequestUtil == null) {
 			Psi_Options__c options = Psi_Options__c.getInstance(UserInfo.getUserId());
