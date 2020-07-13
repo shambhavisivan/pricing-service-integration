@@ -1,21 +1,24 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true,
-      "package": "CloudSense Pricing Service Integration",
-      "versionNumber": "1.0.0",
-      "dependencies": [
+    "packageDirectories": [
         {
-          "package": "cs-util@1.63"
+            "path": "force-app",
+            "package": "Pricing Service Integration",
+            "versionName": "1.0.0.0",
+            "versionNumber": "1.0.0.0",
+            "default": true,
+            "dependencies": [
+                {
+                    "package": "cs-util@1.63"
+                }
+            ]
         }
-      ]
+    ],
+    "namespace": "cspsi",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "48.0",
+    "packageAliases": {
+        "cs-util@1.63": "04t1n000001YVWx",
+        "Pricing Service Integration": "0Ho3g0000004C98CAE",
+        "Pricing Service Integration@1.0.0-0": "04t3g000000TnCBAA0"
     }
-  ],
-  "namespace": "cspsi",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "48.0",
-  "packageAliases": {
-    "cs-util@1.63": "04t1n000001YVWx"
-  }
 }
