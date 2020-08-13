@@ -4,6 +4,7 @@ global virtual with sharing class PsiException extends Exception {
 	public class PluginRegistrationException extends PsiException {}
 	public class PluginExecutionException extends PsiException {}
 	public class InvalidVersionException extends PsiException {}
+	public class InvalidExpressionException extends PsiException {}
 	public class DeserializationException extends PsiException {}
 
 	public class Rest4xxException extends PsiException {

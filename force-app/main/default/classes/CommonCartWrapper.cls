@@ -5,7 +5,7 @@ global with sharing class CommonCartWrapper {
 	public static final String VERSION_3_1_0 = '3-1-0';
 	public static final String VERSION_3_2_0 = '3-2-0';
 
-	public static final List<String> ALL_VERSIONS = new List<String>{
+	public static final List<String> ALL_VERSIONS = new List<String> {
 		VERSION_1_0_0,
 		VERSION_2_0_0,
 		VERSION_3_0_0,
@@ -13,11 +13,11 @@ global with sharing class CommonCartWrapper {
 		VERSION_3_2_0
 	};
 
-	private static final String[] CHARGE_TYPE = new List<String>{ 'oneOff', 'recurring' };
-	private static final String[] CHARGE_TYPE_OPTIONAL = new List<String>{ 'oneOff', 'recurring', null };
+	private static final String[] CHARGE_TYPE = new List<String> { 'oneOff', 'recurring' };
+	private static final String[] CHARGE_TYPE_OPTIONAL = new List<String> { 'oneOff', 'recurring', null };
 
-	private static final String[] DISCOUNT_TYPE = new List<String>{ 'absolute', 'percentage', 'override', 'init' };
-	private static final String[] DISCOUNT_TYPE_OPTIONAL = new List<String>{
+	private static final String[] DISCOUNT_TYPE = new List<String> { 'absolute', 'percentage', 'override', 'init' };
+	private static final String[] DISCOUNT_TYPE_OPTIONAL = new List<String> {
 		'absolute',
 		'percentage',
 		'override',
@@ -25,21 +25,21 @@ global with sharing class CommonCartWrapper {
 		null
 	};
 
-	private static final String[] DISCOUNT_TYPE_100 = new List<String>{ 'absolute', 'percentage', 'override' };
-	private static final String[] DISCOUNT_TYPE_OPTIONAL_100 = new List<String>{
+	private static final String[] DISCOUNT_TYPE_100 = new List<String> { 'absolute', 'percentage', 'override' };
+	private static final String[] DISCOUNT_TYPE_OPTIONAL_100 = new List<String> {
 		'absolute',
 		'percentage',
 		'override',
 		null
 	};
 
-	private static final String[] PRICE_TYPE = new List<String>{ 'list', 'sales' };
-	private static final String[] PRICE_TYPE_OPTIONAL = new List<String>{ 'list', 'sales', null };
+	private static final String[] PRICE_TYPE = new List<String> { 'list', 'sales' };
+	private static final String[] PRICE_TYPE_OPTIONAL = new List<String> { 'list', 'sales', null };
 
-	private static final String[] EVALUATION_ORDER = new List<String>{ 'serial', 'parallel' };
-	private static final String[] EVALUATION_ORDER_OPTIONAL = new List<String>{ 'serial', 'parallel', null };
+	private static final String[] EVALUATION_ORDER = new List<String> { 'serial', 'parallel' };
+	private static final String[] EVALUATION_ORDER_OPTIONAL = new List<String> { 'serial', 'parallel', null };
 
-	private static final String[] RECORD_TYPE = new List<String>{ 'single', 'group' };
+	private static final String[] RECORD_TYPE = new List<String> { 'single', 'group' };
 
 	private static Boolean isVersionEqualTo(String version, String equalTo) {
 		if (version != null && equalTo != null && version.compareTo(equalTo) == 0) {
@@ -94,7 +94,7 @@ global with sharing class CommonCartWrapper {
 			throw new PsiException(
 				String.format(
 					'Invalid {0} value: "{1}" supplied for: "{2}". Accepted values are: "{3}"',
-					new List<Object>{ objName, value, key, String.join(acceptedValues, '", "') }
+					new List<Object> { objName, value, key, String.join(acceptedValues, '", "') }
 				)
 			);
 		}
@@ -106,7 +106,7 @@ global with sharing class CommonCartWrapper {
 		void validate();
 	}
 
-	global with sharing class CommonCart implements Validateable {
+	global with sharing class CommonCart extends FieldsAsMap implements Validateable {
 		/**
 		 * API version of the Cart structure
 		 */
@@ -136,7 +136,7 @@ global with sharing class CommonCartWrapper {
 			validateVersion(
 				'CommonCart',
 				this.version,
-				new List<String>{ VERSION_1_0_0, VERSION_2_0_0, VERSION_3_0_0, VERSION_3_1_0, VERSION_3_2_0 }
+				new List<String> { VERSION_1_0_0, VERSION_2_0_0, VERSION_3_0_0, VERSION_3_1_0, VERSION_3_2_0 }
 			);
 
 			require('CommonCart', 'version', this.version);
@@ -165,7 +165,7 @@ global with sharing class CommonCartWrapper {
 		}
 	}
 
-	global with sharing class CartItem implements Validateable {
+	global with sharing class CartItem extends FieldsAsMap implements Validateable {
 		/**
 		 * API version of the CartItem structure
 		 */
@@ -215,7 +215,7 @@ global with sharing class CommonCartWrapper {
 			validateVersion(
 				'CartItem',
 				this.version,
-				new List<String>{ VERSION_1_0_0, VERSION_2_0_0, VERSION_3_0_0, VERSION_3_1_0 }
+				new List<String> { VERSION_1_0_0, VERSION_2_0_0, VERSION_3_0_0, VERSION_3_1_0 }
 			);
 
 			require('CartItem', 'version', this.version);
@@ -357,7 +357,7 @@ global with sharing class CommonCartWrapper {
 		global Map<String, String> customData { get; set; }
 
 		global void validate() {
-			validateVersion('Charge', this.version, new List<String>{ VERSION_1_0_0 });
+			validateVersion('Charge', this.version, new List<String> { VERSION_1_0_0 });
 
 			constrainValue('Charge', 'chargeType', this.chargeType, CHARGE_TYPE);
 			require('Charge', 'description', this.description);
@@ -405,7 +405,7 @@ global with sharing class CommonCartWrapper {
 			validateVersion(
 				'Discount',
 				this.version,
-				new List<String>{ VERSION_1_0_0, VERSION_2_0_0, VERSION_3_0_0, VERSION_3_1_0 }
+				new List<String> { VERSION_1_0_0, VERSION_2_0_0, VERSION_3_0_0, VERSION_3_1_0 }
 			);
 
 			if (isVersionEqualTo(this.version, VERSION_1_0_0)) {
@@ -443,6 +443,18 @@ global with sharing class CommonCartWrapper {
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * Emulates standard SObject getPopulatedFieldsAsMap functionality.
+	 * Returns a map of populated field names and their corresponding values.
+	 * The map contains only the fields that have been populated in memory for the Object instance.
+	 */
+	public virtual class FieldsAsMap {
+		public Map<String, Object> getPopulatedFieldsAsMap() {
+			String jsonInstance = Json.serialize(this);
+			return (Map<String, Object>) Json.deserializeUntyped(jsonInstance);
 		}
 	}
 }
