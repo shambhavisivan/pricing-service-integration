@@ -16,7 +16,7 @@ global with sharing class PricingAggregator {
 		return getDiscountsFor(par.cartItemFields, cartItem);
 	}
 
-	private static PricingAggregatorRegistration getPluginConfiguration() {
+	public static PricingAggregatorRegistration getPluginConfiguration() {
 		List<Object> pluginConfigurations = JsonConfigurationService.getPluginConfigurations(
 			PRICING_AGGREGATOR,
 			PricingAggregatorRegistration.class
