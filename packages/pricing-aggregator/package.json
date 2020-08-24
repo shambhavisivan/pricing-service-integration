@@ -6,24 +6,29 @@
   "scripts": {
     "pretest": "npm run build",
     "build": "tsc",
+    "build:amd": "npx webpack",
     "test-ci": "npm run test",
     "test": "npx mocha test/**"
   },
   "author": "Marko Cekol",
   "license": "See LICENSE.MD",
   "dependencies": {
-    "@cloudsense/common-cart": "^3.0.5",
-    "typescript": "^3.9.5"
+    "@cloudsense/common-cart": "^3.0.5"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
     "@types/mocha": "^8.0.3",
     "chai": "^4.2.0",
+    "clean-webpack-plugin": "^3.0.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.9",
     "mocha": "^8.1.1",
     "prettier": "^2.0.5",
-    "ts-node": "^8.10.2"
+    "ts-loader": "^8.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "husky": {
     "hooks": {
