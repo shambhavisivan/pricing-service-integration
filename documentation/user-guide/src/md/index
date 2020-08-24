@@ -1,4 +1,8 @@
 # list files to be included in the project following the order
 # Standard '*' wildcard can be used for including multiple files (alphabetically sorted)
 
+registering-with-the-pricing-service.md
+pricing-service-api.md
 prg-selection.md
+pricing-aggregation.md
+applying-discounts.md
