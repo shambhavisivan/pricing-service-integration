@@ -1,0 +1,22 @@
+# do not include webpack artefacts
+/dist
+*.js.map
+
+# do not include typescript files
+*.ts
+
+# use only declaration files
+!*.d.ts
+
+# do not include test files
+/test
+
+# do not include (formatter) configuration files
+.prettierrc
+webpack.config.js
+tsconfig.json
+# do not include TS build cache
+tsconfig.tsbuildinfo
+
+# do not include test packages
+*.tgz

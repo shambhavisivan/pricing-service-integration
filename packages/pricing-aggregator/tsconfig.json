@@ -4,9 +4,10 @@
     "module": "commonjs",
     "allowJs": false,
     "lib": ["es2019", "DOM"],
-    "target": "es2019",
+    "target": "es2017",
     "incremental": false,
-    "strict": true
+    "strict": true,
+    "declaration": true
   },
   "include": ["src/**/*.ts", "test/**/*.ts"]
 }

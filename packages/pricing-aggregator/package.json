@@ -1,14 +1,15 @@
 {
-  "name": "pricing-aggregator",
+  "name": "@cloudsense/pricing-aggregator",
   "version": "0.0.1",
   "description": "",
-  "main": "index.ts",
+  "main": "src/services/pricing-aggregator.js",
   "scripts": {
-    "pretest": "npm run build",
     "build": "tsc",
     "build:amd": "npx webpack",
+    "pretest": "npm run build",
+    "test": "npx mocha test/**",
     "test-ci": "npm run test",
-    "test": "npx mocha test/**"
+    "prepack": "npm run build"
   },
   "author": "Marko Cekol",
   "license": "See LICENSE.MD",
