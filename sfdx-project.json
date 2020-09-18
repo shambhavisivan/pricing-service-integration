@@ -3,8 +3,8 @@
     {
       "path": "force-app",
       "package": "Pricing Service Integration",
-      "versionName": "1.0.0.0",
-      "versionNumber": "1.0.0.0",
+      "versionName": "1.1.0",
+      "versionNumber": "1.1.0.0",
       "default": true,
       "dependencies": [
         {
@@ -19,6 +19,7 @@
   "packageAliases": {
     "cs-util@1.64": "04t1n000001YVX7",
     "Pricing Service Integration": "0Ho3g0000004C98CAE",
-    "Pricing Service Integration@1.0.0-0": "04t3g000000TnCBAA0"
+    "Pricing Service Integration@1.0.0-0": "04t3g000000TnCBAA0",
+    "Pricing Service Integration@1.1.0-0": "04t3g000000HCklAAG"
   }
 }
