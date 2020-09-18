@@ -1,8 +1,11 @@
 global with sharing class PricingServiceApi {
-
-	private static csutil.DispatcherRequestUtil dispatcherRequestUtil {
+	@TestVisible
+	private static IRequestUtility requestUtility {
 		get {
-			return getDispatcherRequestUtilInstance();
+			if (requestUtility == null) {
+				requestUtility = getDispatcherRequestUtilInstance();
+			}
+			return requestUtility;
 		}
 		private set;
 	}
@@ -11,11 +14,7 @@ global with sharing class PricingServiceApi {
 	 * Invokes the PS synchronisation process.
 	 */
 	global static SyncInProgressResponse synchronise() {
-		HttpResponse response = dispatcherRequestUtil.sendRequest(
-			'GET',
-			'/pre/synchronize-pricings',
-			''
-		);
+		HttpResponse response = requestUtility.sendRequest('GET', '/pre/synchronize-pricings', '');
 
 		checkResponseStatusCode(response);
 
@@ -31,11 +30,7 @@ global with sharing class PricingServiceApi {
 	 * Returns the results of last synchronisation attempts.
 	 */
 	global static Synchronizations getLastSynchronisations() {
-		HttpResponse response = dispatcherRequestUtil.sendRequest(
-			'GET',
-			'/pre/synchronizations',
-			''
-		);
+		HttpResponse response = requestUtility.sendRequest('GET', '/pre/synchronizations', '');
 
 		checkResponseStatusCode(response);
 
@@ -51,9 +46,11 @@ global with sharing class PricingServiceApi {
 	 * Sends the common cart to PRE to get pricing information.
 	 */
 	global static CommonCartWrapper.CommonCart getPricings(CommonCartWrapper.CommonCart cart) {
-		HttpResponse response = dispatcherRequestUtil.sendRequest(
+		String apiVersion = getPricingServiceApiVersion(cart);
+
+		HttpResponse response = requestUtility.sendRequest(
 			'POST',
-			'/pre/v5/pricings',
+			String.format('/pre/{0}/pricings', new List<String> { apiVersion }),
 			Json.serialize(cart)
 		);
 
@@ -67,19 +64,6 @@ global with sharing class PricingServiceApi {
 		}
 	}
 
-	private static csutil.DispatcherRequestUtil getDispatcherRequestUtilInstance() {
-		if (dispatcherRequestUtil == null) {
-			Psi_Options__c options = Psi_Options__c.getInstance(UserInfo.getUserId());
-
-			dispatcherRequestUtil = new csutil.DispatcherRequestUtil(
-				options.certificate_name__c,
-				options.dispatcher_service_endpoint__c
-			);
-		}
-
-		return dispatcherRequestUtil;
-	}
-
 	private static void checkResponseStatusCode(HttpResponse response) {
 		String message = response.getStatus();
 		Integer statusCode = response.getStatusCode();
@@ -88,6 +72,46 @@ global with sharing class PricingServiceApi {
 			throw new PsiException.Rest4xxException(message, statusCode);
 		} else if (statusCode >= 500 && statusCode < 600) {
 			throw new PsiException.Rest5xxException(message, statusCode);
+		}
+	}
+
+	@TestVisible
+	private static String getPricingServiceApiVersion(CommonCartWrapper.CommonCart cart) {
+		if (cart.version == '1-0-0') {
+			return 'v1';
+		} else if (cart.version == '3-0-0') {
+			return 'v4';
+		} else if (cart.version == '3-1-0') {
+			return 'v5';
+		} else if (cart.version == '3-2-0') {
+			return 'v6';
+		} else {
+			throw new PsiException.InvalidVersionException('Unsupported common cart version ' + cart.version);
+		}
+	}
+
+	@TestVisible
+	private static DispatcherRequestUtilWrapper getDispatcherRequestUtilInstance() {
+		Psi_Options__c options = Psi_Options__c.getInstance(UserInfo.getUserId());
+
+		csutil.DispatcherRequestUtil dispatcherRequestUtil = new csutil.DispatcherRequestUtil(
+			options.certificate_name__c,
+			options.dispatcher_service_endpoint__c
+		);
+
+		return new DispatcherRequestUtilWrapper(dispatcherRequestUtil);
+	}
+
+	public class DispatcherRequestUtilWrapper implements IRequestUtility {
+		@TestVisible
+		private csutil.DispatcherRequestUtil dispatcherRequestUtil { get; set; }
+
+		DispatcherRequestUtilWrapper(csutil.DispatcherRequestUtil util) {
+			this.dispatcherRequestUtil = util;
+		}
+
+		public HttpResponse sendRequest(String method, String endpoint, String payload) {
+			return dispatcherRequestUtil.sendRequest(method, endpoint, payload);
 		}
 	}
 
