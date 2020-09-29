@@ -16,7 +16,7 @@ echo "Creating scratch org..."
 sfdx force:org:create --setdefaultusername -f config/project-scratch-def.json --setalias $orgAlias
 
 echo "Installing CS Utilities package"
-sfdx force:package:install --package cs-util@1.64 --wait 15 --targetusername $orgAlias
+sfdx force:package:install --package cs-util@1.65 --wait 15 --targetusername $orgAlias
 
 echo "Building Static resources"
 (cd ./packages/pricing-aggregator && npm run build:amd)
