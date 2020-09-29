@@ -1,3 +1,4 @@
+@JsonAccess(serializable='always' deserializable='always')
 global with sharing class CommonCartWrapper {
 	public static final String VERSION_1_0_0 = '1-0-0';
 	public static final String VERSION_2_0_0 = '2-0-0';
@@ -106,6 +107,7 @@ global with sharing class CommonCartWrapper {
 		void validate();
 	}
 
+	@JsonAccess(serializable='always' deserializable='always')
 	global with sharing class CommonCart extends FieldsAsMap implements Validateable {
 		/**
 		 * API version of the Cart structure
@@ -165,6 +167,7 @@ global with sharing class CommonCartWrapper {
 		}
 	}
 
+	@JsonAccess(serializable='always' deserializable='always')
 	global with sharing class CartItem extends FieldsAsMap implements Validateable {
 		/**
 		 * API version of the CartItem structure
@@ -235,6 +238,7 @@ global with sharing class CommonCartWrapper {
 		}
 	}
 
+	@JsonAccess(serializable='always' deserializable='always')
 	global with sharing class Attribute implements Validateable {
 		/**
 		 * The ID of the attribute.
@@ -258,6 +262,7 @@ global with sharing class CommonCartWrapper {
 		}
 	}
 
+	@JsonAccess(serializable='always' deserializable='always')
 	global with sharing class Pricing implements Validateable {
 		global Charge[] charges { get; set; }
 		global Discount[] discounts { get; set; }
@@ -328,6 +333,7 @@ global with sharing class CommonCartWrapper {
 		}
 	}
 
+	@JsonAccess(serializable='always' deserializable='always')
 	global with sharing class Charge implements Validateable {
 		/**
 		 * API version of the Charge structure
@@ -367,6 +373,7 @@ global with sharing class CommonCartWrapper {
 		}
 	}
 
+	@JsonAccess(serializable='always' deserializable='always')
 	global with sharing class Discount implements Validateable {
 		/**
 		 * API version of the Discount structure
@@ -451,6 +458,7 @@ global with sharing class CommonCartWrapper {
 	 * Returns a map of populated field names and their corresponding values.
 	 * The map contains only the fields that have been populated in memory for the Object instance.
 	 */
+	@JsonAccess(serializable='always' deserializable='always')
 	public virtual class FieldsAsMap {
 		public Map<String, Object> getPopulatedFieldsAsMap() {
 			String jsonInstance = Json.serialize(this);
