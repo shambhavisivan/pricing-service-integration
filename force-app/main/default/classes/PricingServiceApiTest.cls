@@ -76,10 +76,7 @@ public with sharing class PricingServiceApiTest {
 		RequestParams rp = mock.requestParams;
 		System.assertEquals('POST', rp.method);
 		System.assertEquals('/pre/v6/pricings', rp.endpoint);
-		System.assertEquals(
-			'{"version":"3-2-0","sharedData":null,"pricingRuleGroupCodes":null,"pricing":null,"items":null,"id":null,"holdings":null,"externalIds":null,"customData":null}',
-			rp.payload
-		);
+		System.assertEquals('{"version":"3-2-0"}', rp.payload);
 	}
 
 	@IsTest

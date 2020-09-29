@@ -51,7 +51,7 @@ global with sharing class PricingServiceApi {
 		HttpResponse response = requestUtility.sendRequest(
 			'POST',
 			String.format('/pre/{0}/pricings', new List<String> { apiVersion }),
-			Json.serialize(cart)
+			Json.serialize(cart, true) // remove all null values from the serialized JSON
 		);
 
 		checkResponseStatusCode(response);
@@ -111,13 +111,21 @@ global with sharing class PricingServiceApi {
 		}
 
 		public HttpResponse sendRequest(String method, String endpoint, String payload) {
+			if (csutil.Log.isDebugEnabled) {
+				String message = 'Sending request: ' + method + ' ' + endpoint;
+				if (String.isNotBlank(payload)) {
+					message += '\nPayload:\n' + payload;
+				}
+				csutil.Log.debug(message);
+			}
+
 			return dispatcherRequestUtil.sendRequest(method, endpoint, payload);
 		}
 	}
 
 	global class SyncInProgressResponse {
-		global Synchronization lastSync { get; set; }
-		global Synchronization lastSyncSuccess { get; set; }
+		global String lastSync { get; set; }
+		global String lastSyncSuccess { get; set; }
 		global String message { get; set; }
 	}
 
