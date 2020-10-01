@@ -65,18 +65,26 @@ public with sharing class PricingServiceApiTest {
 	public static void getPricingsTest() {
 		CommonCartWrapper.CommonCart cart = new CommonCartWrapper.CommonCart();
 		cart.version = '3-2-0';
+		cart.id = 'some-cart-id';
+		cart.pricingRuleGroupCodes = new List<String> { 'PRG1' };
 
-		MockRequestUtil mock = new MockRequestUtil().setResponse('{"cart":{}}');
+		MockRequestUtil mock = new MockRequestUtil()
+			.setResponse('{"actions": [], "cart":' + JSON.serialize(cart) + '}');
 		PricingServiceApi.requestUtility = mock;
 
 		Test.startTest();
-		CommonCartWrapper.CommonCart response = PricingServiceApi.getPricings(cart);
+		PricingServiceApi.PricingResponse response = PricingServiceApi.getPricings(cart);
 		Test.stopTest();
 
 		RequestParams rp = mock.requestParams;
 		System.assertEquals('POST', rp.method);
 		System.assertEquals('/pre/v6/pricings', rp.endpoint);
-		System.assertEquals('{"version":"3-2-0"}', rp.payload);
+		System.assertEquals('{"version":"3-2-0","pricingRuleGroupCodes":["PRG1"],"id":"some-cart-id"}', rp.payload);
+
+		System.assertEquals(
+			'{"cart":{"version":"3-2-0","sharedData":null,"pricingRuleGroupCodes":["PRG1"],"pricing":null,"items":null,"id":"some-cart-id","holdings":null,"externalIds":null,"customData":null},"actions":[]}',
+			Json.serialize(response)
+		);
 	}
 
 	@IsTest

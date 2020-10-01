@@ -45,7 +45,7 @@ global with sharing class PricingServiceApi {
 	/**
 	 * Sends the common cart to PRE to get pricing information.
 	 */
-	global static CommonCartWrapper.CommonCart getPricings(CommonCartWrapper.CommonCart cart) {
+	global static PricingResponse getPricings(CommonCartWrapper.CommonCart cart) {
 		String apiVersion = getPricingServiceApiVersion(cart);
 
 		HttpResponse response = requestUtility.sendRequest(
@@ -58,7 +58,7 @@ global with sharing class PricingServiceApi {
 
 		try {
 			String responseBody = response.getBody();
-			return (CommonCartWrapper.CommonCart) Json.deserialize(responseBody, CommonCartWrapper.CommonCart.class);
+			return (PricingResponse) Json.deserialize(responseBody, PricingResponse.class);
 		} catch (Exception e) {
 			throw new PsiException.DeserializationException('Could not parse response: ' + e.getMessage());
 		}
@@ -152,5 +152,13 @@ global with sharing class PricingServiceApi {
 		global String catalogueId { get; set; }
 		global Boolean success { get; set; }
 		global String message { get; set; }
+	}
+
+	global class PricingResponse {
+		global Actions[] actions { get; set; }
+		global CommonCartWrapper.CommonCart cart { get; set; }
+	}
+
+	global class Actions {
 	}
 }
