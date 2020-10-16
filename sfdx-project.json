@@ -3,8 +3,8 @@
     {
       "path": "force-app",
       "package": "Pricing Service Integration",
-      "versionName": "1.4.0",
-      "versionNumber": "1.4.0.0",
+      "versionName": "1.5.0",
+      "versionNumber": "1.5.0.0",
       "default": true,
       "dependencies": [
         {
@@ -23,6 +23,7 @@
     "Pricing Service Integration@1.1.0-0": "04t3g000000HCklAAG",
     "Pricing Service Integration@1.2.0-0": "04t3g000000HCl0AAG",
     "Pricing Service Integration@1.3.0-0": "04t3g000000HClFAAW",
-    "Pricing Service Integration@1.4.0-0": "04t3g000000HClKAAW"
+    "Pricing Service Integration@1.4.0-0": "04t3g000000HClKAAW",
+    "Pricing Service Integration@1.5.0-0": "04t3g000000HJ7bAAG"
   }
 }
