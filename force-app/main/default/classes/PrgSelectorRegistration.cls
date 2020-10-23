@@ -1,3 +1,4 @@
+@JsonAccess(serializable='always' deserializable='always')
 global with sharing class PrgSelectorRegistration extends AJsonConfiguration {
 	global String className { get; set; }
 	global String configuration { get; set; }
