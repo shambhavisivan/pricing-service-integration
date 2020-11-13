@@ -1,5 +1,5 @@
 global with sharing class PricingAggregator {
-	public static final String PRICING_AGGREGATOR = 'PSI/PricingAggregator';
+	public static final String PRICING_AGGREGATOR_NAMESPACE = 'PSI/PricingAggregator';
 
 	private static final String DOT_CHAR = '.';
 	private static final String EXCL_MARK_CHAR = '!';
@@ -17,18 +17,27 @@ global with sharing class PricingAggregator {
 	}
 
 	public static PricingAggregatorRegistration getPluginConfiguration() {
-		List<Object> pluginConfigurations = JsonConfigurationService.getPluginConfigurations(
-			PRICING_AGGREGATOR,
+		List<PricingAggregatorRegistration> pluginConfigurations = (List<PricingAggregatorRegistration>) JsonConfigurationService.getPluginConfigurations(
+			PRICING_AGGREGATOR_NAMESPACE,
 			PricingAggregatorRegistration.class
 		);
 
 		if (pluginConfigurations == null || pluginConfigurations.size() == 0) {
 			throw new PsiException.PluginRegistrationException(
-				'Missing or invalid configuration for: ' + PRICING_AGGREGATOR
+				'Missing or invalid configuration for: ' + PRICING_AGGREGATOR_NAMESPACE
 			);
 		}
 
-		return (PricingAggregatorRegistration) pluginConfigurations[0];
+		PricingAggregatorRegistration mergedConfiguration = new PricingAggregatorRegistration();
+		// TODO: add version check and upgrade once PricingAggregatorRegistration changes
+		mergedConfiguration.version = '1-0-0';
+
+		for (PricingAggregatorRegistration par : pluginConfigurations) {
+			mergedConfiguration.cartFields.addAll(par.cartFields);
+			mergedConfiguration.cartItemFields.addAll(par.cartItemFields);
+		}
+
+		return mergedConfiguration;
 	}
 
 	private static List<CommonCartWrapper.Discount> getDiscountsFor(

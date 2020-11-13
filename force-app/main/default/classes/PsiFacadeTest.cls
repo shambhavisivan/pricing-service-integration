@@ -16,7 +16,7 @@ public with sharing class PsiFacadeTest {
 		registration.version = '1-0-0';
 		registration.cartFields = new List<String> { 'customData.customFields!csdm__discounts__c' };
 		registration.cartItemFields = new List<String> { 'customData.customFields!pre_pricing__c' };
-		JsonConfigurationService.setPluginConfiguration(PricingAggregator.PRICING_AGGREGATOR, registration);
+		JsonConfigurationService.setPluginConfiguration(PricingAggregator.PRICING_AGGREGATOR_NAMESPACE, registration);
 	}
 
 	@IsTest

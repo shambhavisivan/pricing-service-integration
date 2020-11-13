@@ -3,6 +3,8 @@ global with sharing class PricingAggregatorRegistration extends AJsonConfigurati
 	global List<String> cartItemFields { get; set; }
 
 	public PricingAggregatorRegistration() {
+		this.cartFields = new List<String>();
+		this.cartItemFields = new List<String>();
 	}
 
 	global override void validate() {

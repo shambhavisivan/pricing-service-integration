@@ -73,7 +73,7 @@ public with sharing class PricingAggregatorTest {
 			'customData.customFields!pre_pricing__c'
 		};
 		registration.cartItemFields = new List<String>();
-		JsonConfigurationService.setPluginConfiguration(PricingAggregator.PRICING_AGGREGATOR, registration);
+		JsonConfigurationService.setPluginConfiguration(PricingAggregator.PRICING_AGGREGATOR_NAMESPACE, registration);
 
 		Test.startTest();
 		List<CommonCartWrapper.Discount> discounts = PricingAggregator.aggregateCartPricing(c);
@@ -116,7 +116,7 @@ public with sharing class PricingAggregatorTest {
 		registration.version = '1-0-0';
 		registration.cartFields = new List<String> { 'customData.customFields!csdm__discounts__c' };
 		registration.cartItemFields = new List<String>();
-		JsonConfigurationService.setPluginConfiguration(PricingAggregator.PRICING_AGGREGATOR, registration);
+		JsonConfigurationService.setPluginConfiguration(PricingAggregator.PRICING_AGGREGATOR_NAMESPACE, registration);
 
 		Test.startTest();
 		try {
@@ -128,6 +128,53 @@ public with sharing class PricingAggregatorTest {
 			);
 		}
 		Test.stopTest();
+	}
+
+	@IsTest
+	public static void multiplePluginRegistrationsTest() {
+		// register multiple plugins
+		PricingAggregatorRegistration registration1 = new PricingAggregatorRegistration();
+		registration1.version = '1-0-0';
+		registration1.cartFields = new List<String> { 'customData.customFields!cart_field' };
+		registration1.cartItemFields = new List<String>();
+		JsonConfigurationService.setPluginConfiguration(
+			PricingAggregator.PRICING_AGGREGATOR_NAMESPACE + '/Discounts',
+			registration1
+		);
+
+		PricingAggregatorRegistration registration2 = new PricingAggregatorRegistration();
+		registration2.version = '1-0-0';
+		registration2.cartFields = new List<String> { 'customData.customFields!another_cart_field' };
+		registration2.cartItemFields = new List<String> { 'customData.customFields!another_cart_item_field' };
+		JsonConfigurationService.setPluginConfiguration(
+			PricingAggregator.PRICING_AGGREGATOR_NAMESPACE + '/Pricing',
+			registration2
+		);
+
+		PricingAggregatorRegistration registration3 = new PricingAggregatorRegistration();
+		registration3.version = '1-0-0';
+		registration3.cartFields = new List<String>();
+		registration3.cartItemFields = new List<String> { 'customData.customFields!cart_item_field' };
+		JsonConfigurationService.setPluginConfiguration(
+			PricingAggregator.PRICING_AGGREGATOR_NAMESPACE + '/OtherSource',
+			registration3
+		);
+
+		Test.startTest();
+		PricingAggregatorRegistration mergedConfiguration = PricingAggregator.getPluginConfiguration();
+		Test.stopTest();
+
+		System.assertEquals(
+			new List<String> { 'customData.customFields!cart_field', 'customData.customFields!another_cart_field' },
+			mergedConfiguration.cartFields
+		);
+		System.assertEquals(
+			new List<String> {
+				'customData.customFields!cart_item_field',
+				'customData.customFields!another_cart_item_field'
+			},
+			mergedConfiguration.cartItemFields
+		);
 	}
 
 	@IsTest
