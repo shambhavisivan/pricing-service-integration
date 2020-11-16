@@ -4,16 +4,23 @@ global with sharing class PricingAggregator {
 	private static final String DOT_CHAR = '.';
 	private static final String EXCL_MARK_CHAR = '!';
 
-	global static List<CommonCartWrapper.Discount> aggregateCartPricing(CommonCartWrapper.CommonCart cart) {
-		PricingAggregatorRegistration par = getPluginConfiguration();
+	private static PricingAggregatorRegistration mergedConfiguration {
+		get {
+			if (mergedConfiguration == null) {
+				mergedConfiguration = getPluginConfiguration();
+			}
 
-		return getDiscountsFor(par.cartFields, cart);
+			return mergedConfiguration;
+		}
+		set;
+	}
+
+	global static List<CommonCartWrapper.Discount> aggregateCartPricing(CommonCartWrapper.CommonCart cart) {
+		return getDiscountsFor(mergedConfiguration.cartFields, cart);
 	}
 
 	global static List<CommonCartWrapper.Discount> aggregateCartItemPricing(CommonCartWrapper.CartItem cartItem) {
-		PricingAggregatorRegistration par = getPluginConfiguration();
-
-		return getDiscountsFor(par.cartItemFields, cartItem);
+		return getDiscountsFor(mergedConfiguration.cartItemFields, cartItem);
 	}
 
 	public static PricingAggregatorRegistration getPluginConfiguration() {
