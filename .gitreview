@@ -1,0 +1,5 @@
+[gerrit]
+host = gerrit.cloudsenseltd.com
+port = 29418
+project = pricing-service-integration
+defaultbranch = master

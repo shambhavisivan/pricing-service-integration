@@ -39,3 +39,4 @@ uncrustify.cfg
 
 # staticresource JavaScript files - need to be built
 **/staticresources/*.js
+documentation/**/dist/

@@ -121,7 +121,7 @@ Example of plugin configuration:
 
 ## Custom plugin implementation
 
-![]({{images}}/pre-selection.png)
+![]({{images}}/prg-selection.png)
 
 A custom plugin needs to implement the globally exposed interface APrgSelector in order to be callable/usable.
 
