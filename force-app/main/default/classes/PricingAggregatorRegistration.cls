@@ -2,7 +2,7 @@ global with sharing class PricingAggregatorRegistration extends AJsonConfigurati
 	global List<String> cartFields { get; set; }
 	global List<String> cartItemFields { get; set; }
 
-	public PricingAggregatorRegistration() {
+	global PricingAggregatorRegistration() {
 		this.cartFields = new List<String>();
 		this.cartItemFields = new List<String>();
 	}

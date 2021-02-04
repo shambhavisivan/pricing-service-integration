@@ -281,4 +281,115 @@ public with sharing class PricingAggregatorTest {
 			PricingAggregator.tokenize('customData.customFields!csdm__discounts__c')
 		);
 	}
+
+	@IsTest
+	public static void getRegisteredCartFieldsTest() {
+		// prepare sample data 1
+		createPsiData('SalesApp1', 'csdiscounts__DLM_cartfield__c', '');
+		// prepare sample data 2
+		createPsiData('SalesApp2', 'cssalesapp2__SA2_cartfield__c', '');
+
+		List<String> expectedData = new List<String> {
+			'customData.customFields!csdiscounts__DLM_cartfield__c',
+			'customData.customFields!cssalesapp2__SA2_cartfield__c'
+		};
+
+		Test.startTest();
+		List<String> actualCartFields = PricingAggregator.getRegisteredCartFields();
+		Test.stopTest();
+
+		System.assertEquals(expectedData, actualCartFields);
+	}
+
+	@IsTest
+	public static void getRegisteredCartItemFieldsTest() {
+		// prepare sample data 1
+		createPsiData('SalesApp1', '', 'csdiscounts__manual_discounts__c');
+		// prepare sample data 2
+		createPsiData('SalesApp2', '', 'cssalesapp2__salesapp2_discounts__c');
+
+		List<String> expectedData = new List<String> {
+			'customData.customFields!csdiscounts__manual_discounts__c',
+			'customData.customFields!cssalesapp2__salesapp2_discounts__c'
+		};
+
+		Test.startTest();
+		List<String> actualCartItemFields = PricingAggregator.getRegisteredCartItemFields();
+		Test.stopTest();
+
+		System.assertEquals(expectedData, actualCartItemFields);
+	}
+
+	@IsTest
+	public static void registerPricingAggregatorTest() {
+		// prepare sample data
+		final String pricingAggregatorName = 'SalesApp1';
+		PricingAggregatorRegistration psiRegistration = setTestPlg(
+			'csdiscounts__SA1_cartfield__c',
+			'csdiscounts__manual_discounts__c'
+		);
+
+		Test.startTest();
+		PricingAggregator.registerPricingAggregator(
+			pricingAggregatorName,
+			psiRegistration
+		);
+		Test.stopTest();
+
+		String settingName = PricingAggregator.PRICING_AGGREGATOR_NAMESPACE + '/' + pricingAggregatorName;
+		csutil__Json_Settings__c setting = [
+			select id,name,csutil__json_configuration__c
+			from csutil__Json_Settings__c
+			where name = :settingName
+		];
+
+		PricingAggregatorRegistration regActual = (PricingAggregatorRegistration) Json.deserialize(
+			setting.csutil__json_configuration__c, PricingAggregatorRegistration.class
+		);
+		List<String> cartFieldsExpected = new List<String> {'customData.customFields!csdiscounts__SA1_cartfield__c'};
+		List<String> cartItemFieldsExpected = new List<String> {'customData.customFields!csdiscounts__manual_discounts__c'};
+
+		System.assertEquals(settingName, setting.name);
+		System.assertEquals(cartFieldsExpected, regActual.cartFields);
+		System.assertEquals(cartItemFieldsExpected, regActual.cartItemFields);
+	}
+
+	@IsTest
+	public static void deletePricingAggregatorTest() {
+		// prepare sample data
+		final String name = 'SalesApp3' ;
+		createPsiData(name, 'SalesApp3__SA3_cartfield__c', 'SalesApp3__manual_discounts__c');
+
+		Test.startTest();
+		PricingAggregator.deletePricingAggregator(name);
+		Test.stopTest();
+
+		List<PricingAggregatorRegistration> ob = (List<PricingAggregatorRegistration>)  JsonConfigurationService.getPluginConfigurations(name, PricingAggregatorRegistration.class);
+
+		System.assertEquals(0, ob.size());
+	}
+
+	public static void createPsiData(String name, String cartField, String cartItemField) {
+		PricingAggregatorRegistration psiRegistration = setTestPlg(
+			cartField, cartItemField
+		);
+		JsonConfigurationService.setPluginConfiguration(
+			PricingAggregator.PRICING_AGGREGATOR_NAMESPACE + '/' + name,
+			psiRegistration
+		);
+	}
+
+	public static PricingAggregatorRegistration setTestPlg(String cartField, String cartItemField) {
+
+		PricingAggregatorRegistration psiRegistration = new PricingAggregatorRegistration();
+		psiRegistration.version = '1-0-0';
+
+		if (!String.isBlank(cartField)) {
+			psiRegistration.cartFields = new List<String> { 'customData.customFields!' + cartField };
+		}
+		if (!String.isBlank(cartItemField)) {
+			psiRegistration.cartItemFields = new List<String> { 'customData.customFields!' + cartItemField };
+		}
+		return psiRegistration;
+	}
 }

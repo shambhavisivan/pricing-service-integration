@@ -10,8 +10,7 @@ public with sharing class JsonConfigurationService {
 		return null;
 	}
 
-	@TestVisible
-	private static void setPluginConfiguration(String name, Object configuration) {
+	public static void setPluginConfiguration(String name, Object configuration) {
 		// TODO: likely to change due to csutil changes, use this for now
 		csutil__Json_Settings__c setting = new csutil__Json_Settings__c();
 		setting.name = name;

@@ -15,6 +15,37 @@ global with sharing class PricingAggregator {
 		set;
 	}
 
+	global static List<String> getRegisteredCartItemFields() {
+		return mergedConfiguration.cartItemFields;
+	}
+
+	global static List<String> getRegisteredCartFields() {
+		return mergedConfiguration.cartFields;
+	}
+
+	global static void registerPricingAggregator(String name, PricingAggregatorRegistration registration) {
+		JsonConfigurationService.setPluginConfiguration(
+			PRICING_AGGREGATOR_NAMESPACE + '/' + name,
+			registration
+		);
+	}
+
+	global static void deletePricingAggregator(String name) {
+		List<csutil__Json_Settings__c> setting = [
+			select id, name
+			from csutil__Json_Settings__c
+			where name = :PRICING_AGGREGATOR_NAMESPACE + '/' + name
+		];
+
+		if (!setting.isEmpty()) {
+			try {
+				delete setting;
+			} catch (DmlException e) {
+				throw new PsiException('Unable to delete ' + name + ' pricing aggregator entry: ' + e.getMessage());
+			}
+		}
+	}
+
 	global static List<CommonCartWrapper.Discount> aggregateCartPricing(CommonCartWrapper.CommonCart cart) {
 		return getDiscountsFor(mergedConfiguration.cartFields, cart);
 	}
