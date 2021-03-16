@@ -25,7 +25,7 @@ If a new dependency has been added, update the **_dependencies_** property accor
 To create a package _version_, i.e. to create a new installation url the following command is used:
 
 ```sh
-sfdx force:package:version:create --package "Pricing Service Integration" --wait 20 --installationkeybypass --codecoverage
+sfdx force:package:version:create --package "Advanced Pricing Integration" --wait 20 --installationkeybypass --codecoverage
 ```
 
 | Parameter               | Description                                             |
@@ -39,7 +39,7 @@ sfdx force:package:version:create --package "Pricing Service Integration" --wait
 When you are ready to release the version, use force:package:version:promote
 
 ```sh
-sfdx force:package:version:promote --package “Pricing Service Integration@1.4.0-0”
+sfdx force:package:version:promote --package "Advanced Pricing Integration@1.4.0-0"
 ```
 
 ## Post packaging steps

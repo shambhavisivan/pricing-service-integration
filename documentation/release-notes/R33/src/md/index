@@ -1,4 +1,8 @@
 # list files to be included in the project following the order
 # Standard '*' wildcard can be used for including multiple files (alphabetically sorted)
 
-prg-selection.md
+introduction.md
+new-features.md
+resolved-issues.md
+known-issues.md
+notes.md
