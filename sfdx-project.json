@@ -4,15 +4,15 @@
       "path": "force-app",
       "package": "Advanced Pricing Integration",
       "versionName": "R33 GA",
-      "versionDescription": "R33 GA",
-      "versionNumber": "33.0.0.0",
+      "versionDescription": "2102-alpha-1",
+      "versionNumber": "33.1.0.0",
       "default": true,
       "dependencies": [
         {
           "package": "cs-util@1.65"
         }
       ],
-      "ancestorId": "04t3g000000HJmOAAW"
+      "ancestorId": "04t3g0000008xa6AAA"
     }
   ],
   "namespace": "cspsi",
@@ -29,6 +29,7 @@
     "Advanced Pricing Integration@1.5.0-0": "04t3g000000HJ7bAAG",
     "Advanced Pricing Integration@1.6.0-0": "04t3g000000HJkXAAW",
     "Advanced Pricing Integration@1.7.0-0": "04t3g000000HJmOAAW",
-    "Advanced Pricing Integration@33.0.0-0": "04t3g0000008xa6AAA"
+    "Advanced Pricing Integration@33.0.0-0": "04t3g0000008xa6AAA",
+    "Advanced Pricing Integration@33.1.0-0": "04t3g0000008xcHAAQ"
   }
 }
