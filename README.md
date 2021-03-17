@@ -4,7 +4,11 @@ These instructions detail the steps necessary to create a new package version an
 
 ## Prerequisites
 
-A commit with modified sfdx-project.json file.
+1. A built pricing_aggregator.js static resource.
+
+   It can be built by running `npm run build:amd` in the `./packages/pricing-aggregator` directory
+
+2. A commit with modified sfdx-project.json file.
 
 The following fields should be updated:
 

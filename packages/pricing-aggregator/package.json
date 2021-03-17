@@ -5,7 +5,7 @@
   "main": "src/services/pricing-aggregator.js",
   "scripts": {
     "build": "tsc",
-    "build:amd": "npx webpack",
+    "build:amd": "npx webpack --config webpack.config.js",
     "pretest": "npm run build",
     "test": "npx mocha test/**",
     "test-ci": "npm run test",
