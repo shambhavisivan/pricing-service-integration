@@ -98,9 +98,31 @@ export class PricingAggregator {
 	}
 
 	private tokenize(expression: string): string[] {
+		const retVal = [];
+		let tmpToken = '';
+
+		for (let char of expression) {
+			if (char === DOT_CHAR || char === EXCL_MARK_CHAR) {
+				if (tmpToken) {
+					retVal.push(tmpToken);
+					tmpToken = '';
+				}
+
+				retVal.push(char);
+			} else {
+				tmpToken = `${tmpToken}${char}`;
+			}
+		}
+
+		if (tmpToken) {
+			retVal.push(tmpToken);
+		}
+
+		return retVal;
+		// commented out due safari issue. When safari enables support for lookbehind and lookahead replace above code with this
 		// use regex lookbehind and lookahead to split the expression
 		// by delimiters ("." and "!"), while keeping delimiters as well
 		// e.g. 'a.b!c'.split(...) produces ['a', '.', 'b', '!', 'c']
-		return expression.split(/(?<=[.!])|(?=[.!])/);
+		// return expression.split(/(?<=[.!])|(?=[.!])/);
 	}
 }
