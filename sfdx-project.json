@@ -3,9 +3,9 @@
     {
       "path": "force-app",
       "package": "Advanced Pricing Integration",
-      "versionName": "R33 GA",
+      "versionName": "R34",
       "versionDescription": "2102-alpha-1",
-      "versionNumber": "33.1.0.0",
+      "versionNumber": "34.0",
       "default": true,
       "dependencies": [
         {
