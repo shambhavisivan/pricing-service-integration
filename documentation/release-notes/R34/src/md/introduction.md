@@ -4,7 +4,7 @@ Release date: 12/07/2021
 
 Build number: R34 (v34.0.0)
 
-Installation URL: TBD
+Installation URL: /packaging/installPackage.apexp?p0=04t3g000000Y0sKAAS
 
 # Release Compatibility
 
