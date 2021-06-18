@@ -14,10 +14,13 @@ The certificate created in Salesforce should be used (the public key part) when 
 
 ## Custom settings setup
 
-A Psi_Options\_\_c custom settings record should be created.
+A `Psi_Options__c` custom settings record should be created.
 It contains the following fields:
 
-- Certificate Name (certificate_name\_\_c)
+- Certificate Name (`certificate_name__c`)
   - The name of the generated certificate which resided in the Certificate and Key Management Salesforce Setup section
-- Dispatcher Service Endpoint (dispatcher_service_endpoint\_\_c)
-  - The URL of the dispatcher service
+- Dispatcher Service Endpoint (`dispatcher_service_endpoint__c`)
+  - The URL of the dispatcher service:
+    - for EU region: https://messaging-api-eu.cloudsense.com
+    - for US region: https://messaging-api-us.cloudsense.com
+    - for APAC region: https://messaging-api-sydney.cloudsense.com
