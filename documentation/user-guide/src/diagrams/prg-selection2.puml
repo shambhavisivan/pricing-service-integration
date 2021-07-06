@@ -1,0 +1,12 @@
+@startuml
+participant "User" as user
+participant "Sales App" as salesApp
+participant "Advanced Pricing Integration" as cspsi
+
+user -> salesApp : Open Sales App
+salesApp -> cspsi : Invoke PRG selection
+cspsi -> cspsi : Select PRGs based on configuration
+cspsi -> salesApp : Return available PRGs
+salesApp -> user : Display available PRGs
+
+@enduml

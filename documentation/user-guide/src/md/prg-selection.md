@@ -29,10 +29,11 @@ Set<String> prgs = cspsi.PrgSelector.selectPrgs(...);
 
 ## Plugin registration
 
-To register a plugin custom metadata type (csutil\_\_Json_Metadata\_\_mdt) records or custom settings (csutil\_\_Json_Settings\_\_c) records from the CSUTIL package are used.
+To register a plugin custom metadata type (csutil\_\_Json_Metadata\_\_mdt) records or custom settings (csutil\_\_Json_Settings\_\_c) records from the CSUtil package are used.
 
 The name of a prg selector plugin must follow the following convention:
-PSI/PrgSelectors/**sequence**, e.g. PSI/PrgSelectors/1, PSI/PrgSelectors/2, etc.
+PSI/PrgSelectors/**sequence**, e.g. \
+PSI/PrgSelectors/1, PSI/PrgSelectors/2, etc.
 
 Example of a plugin registration:
 
@@ -129,14 +130,20 @@ Every custom plugin inherits a field of type String named **configuration**. Thi
 
 ```Java
 global class CustomPrgSelector extends cspsi.APrgSelector {
-
-    global override void selectPrgs(String salesAppId, User user, String basketId, Map<String, String> salesContext, Set<String> prgs) {
-        Map<String, Object> configurationMap = (Map<String, Object>) JSON.deserializeUntyped(this.configuration);
+    global override void selectPrgs(
+      String salesAppId,
+      User user,
+      String basketId,
+      Map<String, String> salesContext,
+      Set<String> prgs
+    ) {
+        Map<String, Object> configurationMap =
+            (Map<String, Object>) Json.deserializeUntyped(this.configuration);
 
         if (configurationMap.get('some-property') == 'some-value') {
-          prgs.add('PRG-123');
+            prgs.add('PRG-123');
         } else {
-          prgs.add('PRG-456');
+            prgs.add('PRG-456');
         }
     }
 }

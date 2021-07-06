@@ -1,0 +1,12 @@
+@startuml
+participant "Sales App" as salesApp
+participant "Advanced Pricing Integration" as cspsi
+participant "Pricing Service" as ps
+
+salesApp -> cspsi : Generate the Common Cart representation\nusing the Apex classes from the\nAdvanced Pricing Integration package
+cspsi -> ps : Serialise the Common Cart\nand make a request
+ps -> cspsi : Return the pricing response
+cspsi -> cspsi : Transform the response\nto the Common Cart format
+cspsi -> salesApp : Return the Apex representation of the\nCommon Cart with the pricing data
+
+@enduml

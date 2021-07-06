@@ -17,7 +17,8 @@ cscfga__Product_Configuration__c productConfiguration = /* product configuration
 cspsi.CommonCartWrapper.CartItem cartItem = /* common cart item data */
 
 // aggregate the discounts
-List<cspsi.CommonCartWrapper.Discount> aggregatedDiscounts = cspsi.PricingAggregator.aggregateCartItemPricing(cartItem);
+List<cspsi.CommonCartWrapper.Discount> aggregatedDiscounts =
+    cspsi.PricingAggregator.aggregateCartItemPricing(cartItem);
 
 // create the necessary structure
 Map<String, Object> discountsMap = new Map<String, Object> {

@@ -20,7 +20,8 @@ Example:
 {
     "lastSync": "2020-03-16T08:05:43.581Z",
     "lastSyncSuccess": "2020-03-16T08:05:43.581Z",
-    "message": "Synchronization in progress. Get list of all complete synchronizations at /pre/synchronizations"
+    "message": "Synchronization in progress. Get list of all complete synchronizations
+                at /pre/synchronizations"
 }
 ```
 
@@ -75,7 +76,12 @@ Example:
         {
             "id": 1,
             "catalogueId": "none",
-            "message": "Synchronization failed, errorEventId: 4f2506a9-9d0f-44a2-9e04-d4cd71284130 : [1. Pricing model can only be synchronized if SF org credentials are configured on the organization.]: Pricing model can only be synchronized if SF org credentials are configured on the organization.",
+            "message": "Synchronization failed,
+                        errorEventId: 4f2506a9-9d0f-44a2-9e04-d4cd71284130:
+                        [1. Pricing model can only be synchronized if SF org
+                        credentials are configured on the organization.]:
+                        Pricing model can only be synchronized if SF org
+                        credentials are configured on the organization.",
             "success": false,
             "createdAt": "2020-02-27T09:03:15.481Z",
             "updatedAt": "2020-02-27T09:03:15.481Z"
@@ -109,7 +115,8 @@ cart.validate();
 
 ## Invoking the Pricing Service
 
-To execute pricing rules and determine prices, Pricing Service needs to be invoked. Calling the Pricing Service is done through the `cspsi.PricingServiceApi` method named `getPricings(CommonCartWrapper.CommonCart cart)`.
+To execute pricing rules and determine prices, Pricing Service needs to be invoked. Calling the Pricing Service is done through the `cspsi.PricingServiceApi` method named \
+`getPricings(CommonCartWrapper.CommonCart cart)`.
 
 An Apex code snippet describing how to invoke the Pricing Service:
 

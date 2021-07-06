@@ -1,0 +1,12 @@
+@startuml
+participant "User" as user
+participant "Sales App" as salesApp
+participant "Advanced Pricing Integration" as cspsi
+
+user -> salesApp : Request totals for\nconfigured products
+salesApp -> cspsi : Invoke pricing aggregation
+cspsi -> cspsi : Aggregate prices using\ndefined aggregation sources
+cspsi -> salesApp : Return aggregation result
+salesApp -> user : Display totals to user
+
+@enduml
