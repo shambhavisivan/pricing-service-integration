@@ -54,6 +54,23 @@ global with sharing class PricingAggregator {
 		return getDiscountsFor(mergedConfiguration.cartItemFields, cartItem);
 	}
 
+	global static CommonCartWrapper.CartItemV2 aggregateCartItemPricingDeep(
+		CommonCartWrapper.CartItemV2 cartItem
+	) {
+		cartItem.pricing.discounts = getDiscountsFor(mergedConfiguration.cartItemFields, cartItem);
+
+		List<CommonCartWrapper.CartItemV2> childItems = new List<CommonCartWrapper.CartItemV2>();
+		for (List<CommonCartWrapper.CartItemV2> childItemsPerSlot : cartItem.childItems.values()) {
+			childItems.addAll(childItemsPerSlot);
+		}
+
+		for (CommonCartWrapper.CartItemV2 childItem : childItems) {
+			childItem.pricing.discounts = getDiscountsFor(mergedConfiguration.cartItemFields, childItem);
+		}
+
+		return cartItem;
+	}
+
 	public static PricingAggregatorRegistration getPluginConfiguration() {
 		List<PricingAggregatorRegistration> pluginConfigurations = (List<PricingAggregatorRegistration>) JsonConfigurationService.getPluginConfigurations(
 			PRICING_AGGREGATOR_NAMESPACE,

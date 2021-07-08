@@ -2,64 +2,13 @@
 public with sharing class PricingAggregatorTest {
 	@IsTest
 	public static void aggregateCartPricingTest() {
-		String discount1 =
-			'{' +
-			'	"version": "3-1-0",' +
-			'	"discountCharge": "__PRODUCT__",' +
-			'	"chargeType": "oneOff",' +
-			'	"discountPrice": "sales",' +
-			'	"type": "absolute",' +
-			'	"amount": 1,' +
-			'	"description": "sample discount",' +
-			'	"duration": 0,' +
-			'	"recurringOffset": 0,' +
-			'	"source": "discount source",' +
-			'	"evaluationOrder": "serial",' +
-			'	"recordType": "single",' +
-			'	"memberDiscounts": null,' +
-			'	"customData": {}' +
-			'}';
-		String discount2 =
-			'{' +
-			'	"version": "3-1-0",' +
-			'	"discountCharge": "__PRODUCT__",' +
-			'	"chargeType": "recurring",' +
-			'	"discountPrice": "list",' +
-			'	"type": "absolute",' +
-			'	"amount": 2,' +
-			'	"description": "sample discount2",' +
-			'	"duration": 0,' +
-			'	"recurringOffset": 0,' +
-			'	"source": "discount source",' +
-			'	"evaluationOrder": "serial",' +
-			'	"recordType": "single",' +
-			'	"memberDiscounts": null,' +
-			'	"customData": {}' +
-			'}';
-		String discount3 =
-			'{' +
-			'	"version": "3-1-0",' +
-			'	"discountCharge": "__PRODUCT__",' +
-			'	"chargeType": "oneOff",' +
-			'	"discountPrice": "sales",' +
-			'	"type": "absolute",' +
-			'	"amount": 3,' +
-			'	"description": "sample discount3",' +
-			'	"duration": 3,' +
-			'	"recurringOffset": 3,' +
-			'	"source": "discount source",' +
-			'	"evaluationOrder": "serial",' +
-			'	"recordType": "single",' +
-			'	"memberDiscounts": null,' +
-			'	"customData": {}' +
-			'}';
 		CommonCartWrapper.CommonCart c = new CommonCartWrapper.CommonCart();
 		c.customData = new Map<String, String> {
 			'customFields' => Json.serialize(
 				new Map<String, String> {
-					'csdm__discounts__c' => discount1,
+					'csdm__discounts__c' => MockObjects.DISCOUNT_1,
 					'pre_pricing__c' => '[' +
-					String.join(new List<String> { discount2, discount3 }, ',') +
+					String.join(new List<String> { MockObjects.DISCOUNT_2, MockObjects.DISCOUNT_3 }, ',') +
 					']'
 				}
 			)
@@ -83,6 +32,63 @@ public with sharing class PricingAggregatorTest {
 		System.assertEquals('sample discount', discounts.get(0).description);
 		System.assertEquals('sample discount2', discounts.get(1).description);
 		System.assertEquals('sample discount3', discounts.get(2).description);
+	}
+
+	@IsTest
+	public static void aggregateCartItemPricingDeepTest() {
+		CommonCartWrapper.CartItemV2 ci = new CommonCartWrapper.CartItemV2();
+		ci.id = 'cartitem-1';
+		ci.version = CommonCartWrapper.VERSION_3_1_0;
+		ci.customData = new Map<String, String>{
+			'customFields' => Json.serialize(new Map<String, String>{ 'csdm__discounts__c' => MockObjects.DISCOUNT_1 })
+		};
+		ci.pricing = new CommonCartWrapper.Pricing();
+
+		List<CommonCartWrapper.CartItemV2> childItems = new List<CommonCartWrapper.CartItemV2>();
+
+		CommonCartWrapper.CartItemV2 child1 = new CommonCartWrapper.CartItemV2();
+		child1.id = 'childitem-1';
+		child1.version = CommonCartWrapper.VERSION_3_1_0;
+		child1.customData = new Map<String, String>{
+			'customFields' => Json.serialize(new Map<String, String>{ 'csdm__discounts__c' => MockObjects.DISCOUNT_2 })
+		};
+		child1.pricing = new CommonCartWrapper.Pricing();
+
+		CommonCartWrapper.CartItemV2 child2 = new CommonCartWrapper.CartItemV2();
+		child2.id = 'childitem-2';
+		child2.version = CommonCartWrapper.VERSION_3_1_0;
+		child2.customData = new Map<String, String>{
+			'customFields' => Json.serialize(new Map<String, String>{ 'csdm__discounts__c' => MockObjects.DISCOUNT_3 })
+		};
+		child2.pricing = new CommonCartWrapper.Pricing();
+
+		ci.childItems = new Map<String, List<CommonCartWrapper.CartItemV2>>{
+			'relatedProducts' => new List<CommonCartWrapper.CartItemV2>{ child1, child2 }
+		};
+
+		// register the plugin
+		PricingAggregatorRegistration registration = new PricingAggregatorRegistration();
+		registration.version = '1-0-0';
+		registration.cartItemFields = new List<String>{ 'customData.customFields!csdm__discounts__c' };
+		registration.cartFields = new List<String>();
+		JsonConfigurationService.setPluginConfiguration(PricingAggregator.PRICING_AGGREGATOR_NAMESPACE, registration);
+
+		Test.startTest();
+		CommonCartWrapper.CartItemV2 cartItemWithDiscounts = PricingAggregator.aggregateCartItemPricingDeep(ci);
+		Test.stopTest();
+
+		System.assertEquals(1, cartItemWithDiscounts.pricing.discounts.size());
+		System.assertEquals('sample discount', cartItemWithDiscounts.pricing.discounts.get(0).description);
+
+		List<CommonCartWrapper.CartItemV2> childItemsWithDiscounts = cartItemWithDiscounts.childItems.get(
+			'relatedProducts'
+		);
+
+		System.assertEquals(1, childItemsWithDiscounts.get(0).pricing.discounts.size());
+		System.assertEquals('sample discount2', childItemsWithDiscounts.get(0).pricing.discounts.get(0).description);
+
+		System.assertEquals(1, childItemsWithDiscounts.get(1).pricing.discounts.size());
+		System.assertEquals('sample discount3', childItemsWithDiscounts.get(1).pricing.discounts.get(0).description);
 	}
 
 	@IsTest

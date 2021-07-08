@@ -25,6 +25,19 @@ export class PricingAggregator {
 		return this.getDiscountsFor(par.cartItemFields, cartItem);
 	}
 
+	public aggregateCartItemPricingDeep(cartItem: CartItem): CartItem {
+		const par = this.getPluginConfiguration();
+
+		const childItems = Object.values(cartItem.childItems || {}).flat();
+
+		for (const item of [cartItem, ...childItems]) {
+			item.pricing = item.pricing || {};
+			item.pricing.discounts = this.getDiscountsFor(par.cartItemFields, item);
+		}
+
+		return cartItem;
+	}
+
 	public getPluginConfiguration(): PricingAggregatorRegistration {
 		if (!this.registration) {
 			throw new MissingRegistrationError(

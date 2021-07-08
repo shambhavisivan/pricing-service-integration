@@ -167,6 +167,8 @@ global with sharing class CommonCartWrapper {
 		}
 	}
 
+	// @TODO: Deprecate this and replace with CartItemV2.
+	// childItems should be of type Map<String, CartItem[]>
 	@JsonAccess(serializable='always' deserializable='always')
 	global with sharing class CartItem extends FieldsAsMap implements Validateable {
 		/**
@@ -186,6 +188,77 @@ global with sharing class CommonCartWrapper {
 		 * A dictionary where keys represent names of child slots and values represent collections of child Cart Items. Children are hierarchically under the parent Cart Item and their pricing is added into the parent pricing. Child Cart Items are better known as related products in the Configurator terminology, but that term may be confusing in the wider landscape of services.
 		 */
 		global Map<String, CartItem> childItems { get; set; }
+		/**
+		 * A dictionary where keys represent names of associations and values represent collections of associated Cart Items. Cart Items can be associated for various purposes - see the Order Enrichment EAR for use cases. Pricing info does not interact automatically between associated items.
+		 */
+		global Map<String, String[]> associatedCartItems { get; set; }
+		/**
+		 * A dictionary where keys represent names of associations and values are collections of IDs to Cart-level Shared Data objects.
+		 */
+		global Map<String, String[]> associatedSharedData { get; set; }
+		/**
+		 * The sequential number of this item in the container (parent cart item or cart)
+		 */
+		global Integer sequence { get; set; }
+		/**
+		 * The number of units within the container, of the product being purchased.
+		 */
+		global Integer quantity { get; set; }
+		global Pricing pricing { get; set; }
+		/**
+		 * The number of times a year recurring prices are charged. E.g. 1 means once a year and 12 means 12 times a year (monthly). This field is only allowed and it is required on the root Cart Item. On add-ons it is always inherited from the root.
+		 */
+		global Integer recurrenceFrequency { get; set; }
+		/**
+		 * The number of recurrence periods (year/recurrenceFrequency time units) that the contract lasts.This field is only allowed on the root Cart Item. On add-ons it is always inherited from the root.
+		 */
+		global Integer contractTerm { get; set; }
+		global Map<String, String> customData { get; set; }
+		global Map<String, String> externalIds { get; set; }
+
+		global void validate() {
+			validateVersion(
+				'CartItem',
+				this.version,
+				new List<String> { VERSION_1_0_0, VERSION_2_0_0, VERSION_3_0_0, VERSION_3_1_0 }
+			);
+
+			require('CartItem', 'version', this.version);
+			require('CartItem', 'id', this.id);
+
+			if (this.attributes != null) {
+				for (Attribute a : this.attributes) {
+					if (a != null) {
+						a.validate();
+					}
+				}
+			}
+
+			if (pricing != null) {
+				pricing.validate();
+			}
+		}
+	}
+
+	@JsonAccess(serializable='always' deserializable='always')
+	global with sharing class CartItemV2 extends FieldsAsMap implements Validateable {
+		/**
+		 * API version of the CartItem structure
+		 */
+		global String version { get; set; }
+		/**
+		 * The ID of the cart item in the cart.
+		 */
+		global String id { get; set; }
+		/**
+		 * The ID of the catalogue item that this cart item is an instance of.
+		 */
+		global String catalogueItemId { get; set; }
+		global Attribute[] attributes { get; set; }
+		/**
+		 * A dictionary where keys represent names of child slots and values represent collections of child Cart Items. Children are hierarchically under the parent Cart Item and their pricing is added into the parent pricing. Child Cart Items are better known as related products in the Configurator terminology, but that term may be confusing in the wider landscape of services.
+		 */
+		global Map<String, CartItemV2[]> childItems { get; set; }
 		/**
 		 * A dictionary where keys represent names of associations and values represent collections of associated Cart Items. Cart Items can be associated for various purposes - see the Order Enrichment EAR for use cases. Pricing info does not interact automatically between associated items.
 		 */

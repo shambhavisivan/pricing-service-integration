@@ -24,7 +24,7 @@ const discountJson = {
 	source: 'discount source',
 	evaluationOrder: 'serial',
 	recordType: 'single',
-	memberDiscounts: null,
+	memberDiscounts: [],
 	customData: {}
 };
 
@@ -122,7 +122,7 @@ describe('Pricing Aggregator', () => {
 		});
 	});
 
-	describe('aggregateCartPricing', () => {
+	describe('aggregateCartItemPricing', () => {
 		it('returns cart item custom discount json defined in the registration record', () => {
 			const cartItem: CartItem = {
 				id: 'cart-id',
@@ -153,6 +153,53 @@ describe('Pricing Aggregator', () => {
 			const cartItemPricing = pricingAggregator.aggregateCartItemPricing(cartItem);
 
 			expect(cartItemPricing).to.deep.equal([discountJson, discountJson]);
+		});
+	});
+
+	describe('aggregateCartItemPricingDeep', () => {
+		it('returns cart item with aggregated discount json for all its child items', () => {
+			const cartItem: CartItem = {
+				id: 'cart-id',
+				version: '3-1-0',
+				customData: {
+					custom_discount_field__c: JSON.stringify(discountJson)
+				},
+				childItems: {
+					relatedProducts: [
+						{
+							id: 'child-id-1',
+							version: '3-1-0',
+							customData: {
+								custom_discount_field__c: JSON.stringify(discountJson)
+							}
+						},
+						{
+							id: 'child-id-2',
+							version: '3-1-0',
+							customData: {
+								custom_discount_field__c: JSON.stringify(discountJson)
+							}
+						},
+						{
+							id: 'child-id-3',
+							version: '3-1-0',
+							customData: {
+								custom_discount_field__c: JSON.stringify(discountJson)
+							}
+						}
+					]
+				}
+			};
+
+			const cartItemWithDiscouts = pricingAggregator.aggregateCartItemPricingDeep(cartItem);
+
+			const childItemsWithDiscounts = Object.values(
+				cartItemWithDiscouts.childItems || {}
+			).flat();
+
+			[cartItemWithDiscouts, ...childItemsWithDiscounts].forEach(item => {
+				expect(item.pricing?.discounts).to.deep.equal([discountJson]);
+			});
 		});
 	});
 });
