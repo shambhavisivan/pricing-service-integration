@@ -1,6 +1,6 @@
 {
   "name": "@cloudsense/pricing-aggregator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "src/services/pricing-aggregator.js",
   "scripts": {
