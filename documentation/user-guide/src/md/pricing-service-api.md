@@ -8,7 +8,8 @@ After each change to Pricing Model data, it needs to be synchronised again, so t
 The following snippet describes how to invoke the synchronisation process:
 
 ```Java
-cspsi.SyncInProgressResponse syncResponse = cspsi.PricingServiceApi.synchronise();
+cspsi.PricingServiceApi.SyncInProgressResponse syncResponse = 
+    cspsi.PricingServiceApi.synchronise();
 ```
 
 The response contains the time of the last successful synchronisation attempt.
@@ -26,7 +27,8 @@ Example:
 To verify that synchronisation attempts are successful, the following code can be used:
 
 ```Java
-cspsi.Synchronizations allSyncRespone = cspsi.PricingServiceApi.getLastSynchronisations();
+cspsi.PricingServiceApi.Synchronizations allSyncRespone = 
+    cspsi.PricingServiceApi.getLastSynchronisations();
 ```
 
 It lists all synchronisation attempts and whether they were successful, execution time, and an error message if the synchronisation was not successful.
