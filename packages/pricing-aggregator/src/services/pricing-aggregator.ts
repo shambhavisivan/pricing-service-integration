@@ -1,7 +1,7 @@
 import { PricingAggregatorRegistration } from './pricing-aggregator-interfaces';
 import { DeserializationError } from '../error/deserialisation-error';
 import { InvalidExpressionError } from '../error/invalid-expression-error';
-import { CommonCart, CartItem, Discount } from '@cloudsense/common-cart';
+import { CommonCart, CartItem, Discount } from '@cloudsense/common-cart-version-adapter';
 import { MissingRegistrationError } from '../error/missing-registration-error';
 
 const PRICING_AGGREGATOR = 'PSI/PricingAggregator';

@@ -14,21 +14,21 @@
   "author": "Marko Cekol",
   "license": "See LICENSE.MD",
   "dependencies": {
-    "@cloudsense/common-cart": "^3.0.5"
+    "@cloudsense/common-cart-version-adapter": "^5.1.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.12",
-    "@types/mocha": "^8.0.3",
-    "chai": "^4.2.0",
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^8.2.3",
+    "chai": "^4.3.4",
     "clean-webpack-plugin": "^3.0.0",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.9",
-    "mocha": "^8.1.1",
-    "prettier": "^2.0.5",
-    "ts-loader": "^8.0.2",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7",
-    "webpack": "^4.44.1",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "mocha": "^9.0.3",
+    "prettier": "^2.3.2",
+    "ts-loader": "^8.3.0",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
   "husky": {

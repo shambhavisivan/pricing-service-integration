@@ -1,5 +1,5 @@
 import { PricingAggregator } from '../../src/services/pricing-aggregator';
-import { CommonCart, CartItem } from '@cloudsense/common-cart';
+import { CommonCart, CartItem } from '@cloudsense/common-cart-version-adapter';
 import { PricingAggregatorRegistration } from '../../src/services/pricing-aggregator-interfaces';
 import { expect } from 'chai';
 import { InvalidExpressionError } from '../../src/error/invalid-expression-error';
