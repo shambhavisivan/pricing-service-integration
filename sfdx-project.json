@@ -1,36 +1,37 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "package": "Advanced Pricing Integration",
-      "versionName": "R34",
-      "versionDescription": "CloudSense Advanced Pricing Integration R34",
-      "versionNumber": "34.0.0.0",
-      "default": true,
-      "dependencies": [
+    "packageDirectories": [
         {
-          "package": "cs-util@1.65"
+            "path": "force-app",
+            "package": "Advanced Pricing Integration",
+            "versionName": "R35",
+            "versionDescription": "CloudSense Advanced Pricing Integration R35",
+            "versionNumber": "35.0.0.0",
+            "default": true,
+            "dependencies": [
+                {
+                    "package": "cs-util@1.65"
+                }
+            ],
+            "ancestorId": "04t3g000000Y0sKAAS"
         }
-      ],
-      "ancestorId": "04t3g0000008xcHAAQ"
+    ],
+    "namespace": "cspsi",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "49.0",
+    "packageAliases": {
+        "cs-util@1.65": "04t1n000001YVcl",
+        "Advanced Pricing Integration": "0Ho3g0000004C98CAE",
+        "Advanced Pricing Integration@1.0.0-0": "04t3g000000TnCBAA0",
+        "Advanced Pricing Integration@1.1.0-0": "04t3g000000HCklAAG",
+        "Advanced Pricing Integration@1.2.0-0": "04t3g000000HCl0AAG",
+        "Advanced Pricing Integration@1.3.0-0": "04t3g000000HClFAAW",
+        "Advanced Pricing Integration@1.4.0-0": "04t3g000000HClKAAW",
+        "Advanced Pricing Integration@1.5.0-0": "04t3g000000HJ7bAAG",
+        "Advanced Pricing Integration@1.6.0-0": "04t3g000000HJkXAAW",
+        "Advanced Pricing Integration@1.7.0-0": "04t3g000000HJmOAAW",
+        "Advanced Pricing Integration@33.0.0-0": "04t3g0000008xa6AAA",
+        "Advanced Pricing Integration@33.1.0-0": "04t3g0000008xcHAAQ",
+        "Advanced Pricing Integration@34.0.0-0": "04t3g000000Y0sKAAS",
+        "Advanced Pricing Integration@35.0.0-0": "04t3g000000kiaNAAQ"
     }
-  ],
-  "namespace": "cspsi",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "49.0",
-  "packageAliases": {
-    "cs-util@1.65": "04t1n000001YVcl",
-    "Advanced Pricing Integration": "0Ho3g0000004C98CAE",
-    "Advanced Pricing Integration@1.0.0-0": "04t3g000000TnCBAA0",
-    "Advanced Pricing Integration@1.1.0-0": "04t3g000000HCklAAG",
-    "Advanced Pricing Integration@1.2.0-0": "04t3g000000HCl0AAG",
-    "Advanced Pricing Integration@1.3.0-0": "04t3g000000HClFAAW",
-    "Advanced Pricing Integration@1.4.0-0": "04t3g000000HClKAAW",
-    "Advanced Pricing Integration@1.5.0-0": "04t3g000000HJ7bAAG",
-    "Advanced Pricing Integration@1.6.0-0": "04t3g000000HJkXAAW",
-    "Advanced Pricing Integration@1.7.0-0": "04t3g000000HJmOAAW",
-    "Advanced Pricing Integration@33.0.0-0": "04t3g0000008xa6AAA",
-    "Advanced Pricing Integration@33.1.0-0": "04t3g0000008xcHAAQ",
-    "Advanced Pricing Integration@34.0.0-0": "04t3g000000Y0sKAAS"
-  }
 }
