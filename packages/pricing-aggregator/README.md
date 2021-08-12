@@ -51,7 +51,7 @@ const discounts = aggregator.aggregateCartPricing(...);
 
 ## Versions
 
-### 2021-07-21, Version 1.1.0
+### 2021-07-21, Version 1.0.3
 
 -   Replace Common Cart with Common Cart Version Adapter
 
