@@ -12,18 +12,7 @@ cspsi.PricingServiceApi.SyncInProgressResponse syncResponse =
     cspsi.PricingServiceApi.synchronise();
 ```
 
-The response contains the time of the last successful synchronisation attempt.
-
-Example:
-
-```JSON
-{
-    "lastSync": "2020-03-16T08:05:43.581Z",
-    "lastSyncSuccess": "2020-03-16T08:05:43.581Z",
-    "message": "Synchronization in progress. Get list of all complete synchronizations
-                at /pre/synchronizations"
-}
-```
+Information about the response is available in the [Pricing Service User Guide](https://drive.google.com/file/d/1uD6WuM15UsdHdq_YZmnogho745bhEiCB/view).
 
 To verify that synchronisation attempts are successful, the following code can be used:
 
@@ -34,61 +23,7 @@ cspsi.PricingServiceApi.Synchronizations allSyncRespone =
 
 It lists all synchronisation attempts and whether they were successful, execution time, and an error message if the synchronisation was not successful.
 
-Example:
-
-```JSON
-{
-    "navigation": {
-        "header": {
-            "totalResults": 9,
-            "pageNumber": 1,
-            "totalPages": 1,
-            "resultsPerPage": 10
-        },
-        "links": {
-            "first": {
-                "href": "/pre/synchronizations?pageNumber=1",
-                "verb": "GET"
-            },
-            "prev": {
-                "href": null,
-                "verb": "GET"
-            },
-            "next": {
-                "href": null,
-                "verb": "GET"
-            },
-            "last": {
-                "href": "/pre/synchronizations?pageNumber=1",
-                "verb": "GET"
-            }
-        }
-    },
-    "results": [
-        {
-            "id": 2,
-            "catalogueId": "none",
-            "message": null,
-            "success": true,
-            "createdAt": "2020-03-10T09:09:18.737Z",
-            "updatedAt": "2020-03-10T09:09:18.737Z"
-        },
-        {
-            "id": 1,
-            "catalogueId": "none",
-            "message": "Synchronization failed,
-                        errorEventId: 4f2506a9-9d0f-44a2-9e04-d4cd71284130:
-                        [1. Pricing model can only be synchronized if SF org
-                        credentials are configured on the organization.]:
-                        Pricing model can only be synchronized if SF org
-                        credentials are configured on the organization.",
-            "success": false,
-            "createdAt": "2020-02-27T09:03:15.481Z",
-            "updatedAt": "2020-02-27T09:03:15.481Z"
-        }
-    ]
-}
-```
+Examples of responses for successful synchronizations, failed synchronizations, and synchronizations in progress are available in the [Pricing Service User Guide](https://drive.google.com/file/d/1uD6WuM15UsdHdq_YZmnogho745bhEiCB/view).
 
 ## Creating a Common Cart structure
 
@@ -216,6 +151,7 @@ Example of a response:
 The authoritative result of the pricing service is contained in the `pricing.discounts` property of the response JSON.
 These discount JSONs need to be stored in the `cscfga__Product_Configuration__c` record in a dedicated field and fed into the aggregation process.
 
-> Note that the pricing service is just one of multiple possible sources of pricing information, and is optional.
+>**Note**: The pricing service is just one of multiple possible sources of pricing information, and is optional.
 
-The prices directly under the `pricing` key are pre-calculated aggregates assuming that the Pricing Service is the sole provider of pricing information. The prices may be useful and are provided as a convenience, but each sales application should treat them judiciously and in context of other sources of pricing (i.e. ignore them if other sources are present).
+The prices directly under the `pricing` key are pre-calculated aggregates assuming that the Pricing Service is the sole provider of the pricing information. 
+The prices may be useful and are provided as a convenience, but each sales application should treat them judiciously and in the context of other sources of pricing (i.e. ignore them if other sources are present).
