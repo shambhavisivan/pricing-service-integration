@@ -12,7 +12,7 @@ cspsi.PricingServiceApi.SyncInProgressResponse syncResponse =
     cspsi.PricingServiceApi.synchronise();
 ```
 
-Information about the response is available in the [Pricing Service User Guide](https://drive.google.com/file/d/1uD6WuM15UsdHdq_YZmnogho745bhEiCB/view).
+Information about the response is available in the Pricing Service User Guide.
 
 To verify that synchronisation attempts are successful, the following code can be used:
 
@@ -23,7 +23,7 @@ cspsi.PricingServiceApi.Synchronizations allSyncRespone =
 
 It lists all synchronisation attempts and whether they were successful, execution time, and an error message if the synchronisation was not successful.
 
-Examples of responses for successful synchronizations, failed synchronizations, and synchronizations in progress are available in the [Pricing Service User Guide](https://drive.google.com/file/d/1uD6WuM15UsdHdq_YZmnogho745bhEiCB/view).
+Examples of responses for successful synchronizations, failed synchronizations, and synchronizations in progress are available in the Pricing Service User Guide.
 
 ## Creating a Common Cart structure
 
