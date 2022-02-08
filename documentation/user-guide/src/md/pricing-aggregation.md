@@ -15,7 +15,7 @@ The following snippet describes how to invoke the aggregation of cart prices:
 ```Java
 cspsi.CommonCartWrapper.CommonCart cart = /* common cart data */
 
-List<cspsi.CommonCartWrapper.Discount> discounts = 
+List<cspsi.CommonCartWrapper.Discount> discounts =
     cspsi.PricingAggregator.aggregateCartPricing(cart);
 ```
 
@@ -24,8 +24,17 @@ And this snippet describes how to do so for cart items:
 ```Java
 cspsi.CommonCartWrapper.CartItem cartItem = /* common cart item data */
 
-List<cspsi.CommonCartWrapper.Discount> discounts = 
+List<cspsi.CommonCartWrapper.Discount> discounts =
     cspsi.PricingAggregator.aggregateCartItemPricing(cartItem);
+```
+
+Use the method below in order to aggregate discounts for cart items and their child items:
+
+```Java
+cspsi.CommonCartWrapper.CartItem cartItem = /* common cart item data with child items */
+
+List<cspsi.CommonCartWrapper.Discount> discounts =
+    cspsi.PricingAggregator.aggregateCartItemPricingDeep(cartItem);
 ```
 
 ### JavaScript
