@@ -3,16 +3,16 @@
         {
             "path": "force-app",
             "package": "Advanced Pricing Integration",
-            "versionName": "R35",
-            "versionDescription": "CloudSense Advanced Pricing Integration R35",
-            "versionNumber": "35.0.0.0",
+            "versionName": "R35-MR1",
+            "versionDescription": "CloudSense Advanced Pricing Integration R35 MR1",
+            "versionNumber": "35.1.0.0",
             "default": true,
             "dependencies": [
                 {
                     "package": "cs-util@1.65"
                 }
             ],
-            "ancestorId": "04t3g000000Y0sKAAS"
+            "ancestorId": "04t3g000000kiaNAAQ"
         }
     ],
     "namespace": "cspsi",
@@ -32,6 +32,7 @@
         "Advanced Pricing Integration@33.0.0-0": "04t3g0000008xa6AAA",
         "Advanced Pricing Integration@33.1.0-0": "04t3g0000008xcHAAQ",
         "Advanced Pricing Integration@34.0.0-0": "04t3g000000Y0sKAAS",
-        "Advanced Pricing Integration@35.0.0-0": "04t3g000000kiaNAAQ"
+        "Advanced Pricing Integration@35.0.0-0": "04t3g000000kiaNAAQ",
+        "Advanced Pricing Integration@35.1.0-0": "04t3g000000TqRrAAK"
     }
 }
