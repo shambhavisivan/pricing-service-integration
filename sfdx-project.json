@@ -5,7 +5,7 @@
             "package": "Advanced Pricing Integration",
             "versionName": "R35-MR1",
             "versionDescription": "CloudSense Advanced Pricing Integration R35 MR1",
-            "versionNumber": "35.1.0.0",
+            "versionNumber": "35.2.0.0",
             "default": true,
             "dependencies": [
                 {
@@ -33,6 +33,7 @@
         "Advanced Pricing Integration@33.1.0-0": "04t3g0000008xcHAAQ",
         "Advanced Pricing Integration@34.0.0-0": "04t3g000000Y0sKAAS",
         "Advanced Pricing Integration@35.0.0-0": "04t3g000000kiaNAAQ",
-        "Advanced Pricing Integration@35.1.0-0": "04t3g000000TqRrAAK"
+        "Advanced Pricing Integration@35.1.0-0": "04t3g000000TqRrAAK",
+        "Advanced Pricing Integration@35.2.0-0": "04t3g000000TqSGAA0"
     }
 }
