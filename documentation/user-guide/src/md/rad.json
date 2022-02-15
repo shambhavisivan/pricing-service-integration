@@ -1,14 +1,13 @@
 {
   "title": "Advanced Pricing Integration",
-  "subtitle": "User Guide R35",
-  "subtitle2": "October 2021",
+  "subtitle": "User Guide R35 Maintenance Release 1 (MR1)",
+  "subtitle2": "April 2022",
   "author": "CloudSense",
-  "date": "October 2021",
-  "document-version": "R35",
-  "title-meta": "Advanced Pricing Integration R35 User Guide",
+  "date": "April 2022",
+  "document-version": "R35-MR1",
+  "title-meta": "Advanced Pricing Integration R35 MR1 User Guide",
   "author-meta": "CloudSense",
   "bookmark-level": 3,
-
-  "targetDriveLocation": "https://drive.google.com/drive/u/0/folders/1s148lbCdE8E7kQEybkSFl6V4LxwfGQyQ",
-  "targetFileName": "CloudSense Advanced Pricing Integration R35 User Guide"
+  "targetDriveLocation": "TBD",
+  "targetFileName": "CloudSense Advanced Pricing Integration R35 MR1 User Guide"
 }
