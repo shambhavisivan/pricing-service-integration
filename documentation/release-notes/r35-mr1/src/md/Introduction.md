@@ -1,6 +1,6 @@
 # Overview
 
-Release date: TBD
+Release date: April 2022
 
 Build number: R35 MR1 (v35.2)
 
